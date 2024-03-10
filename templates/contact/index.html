@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="pt-4">{{title}}</h1>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <form method="post">
+          <div class="input-group mb-3">
+            <input name="name" type="text" class="form-control" placeholder="Search by friend's name" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{ name }}">
+            <button class="btn btn-outline-success" type="submit" id="button-addon2">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col">
+        <a href="{{url_for('new_contact')}}" class="btn btn-outline-primary float-end">
+          <i class="bi bi-person-plus"></i>
+          New Contact
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">รหัสนักศึกษา</th>
+            <th scope="col">ชื่อ-นามสกุล</th>
+            <th scope="col">เบอร์โทรติดต่อ</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in contacts %}
+          <tr>
+            <th scope="row">{{c.id}}</th>
+            <td>{{c.name}}</td>
+            <td>{{c.mobile}}</td>
+            <td>
+              <a href="{{url_for('edit_contact',id=c.id )}}" class="btn btn-outline-success btn-sm" title="edit contact">
+                <i class="bi bi-person-check"></i>
+              </a>
+              <a href="{{url_for('delete_contact',id=c.id )}}" class="btn btn-outline-danger btn-sm" title="remove contact">
+                <i class="bi bi-person-x"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+          
+          
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
